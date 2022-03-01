@@ -21,12 +21,18 @@ import static org.junit.Assert.*;
  */
 public class CustomTester {
     
+    MyMinHeap heap;
     /**
      * Test the constructor when [TODO: fill in a possible edge case here]
      */
     @Test
     public void testMyMinHeapConstructor() {
-
+        heap = new MyMinHeap<String>();
+        heap.data.add("A");
+        heap.data.add("C");
+        heap.data.add("E");
+        heap.data.add("B");
+        heap.data.add("D");
     }
 
     /**

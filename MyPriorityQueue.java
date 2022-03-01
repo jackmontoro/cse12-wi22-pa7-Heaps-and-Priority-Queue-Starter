@@ -18,6 +18,7 @@ public class MyPriorityQueue<E extends Comparable<E>>
 {
 
     //TODO: Add a public instance variable called "heap"
+    MyMinHeap<E> heap;
     //"heap" is of a generic MyMinHeap type
 
     

@@ -13,7 +13,7 @@
 import java.util.*;
 import java.io.*;
 /**
- * TODO: Add class header
+ * Add class header
  */
 public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
 
@@ -74,7 +74,10 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
         int parIdx = getParentIdx(index);
         E parentVal = this.data.get(parIdx);
         E childVal = this.data.get(index);
-        if(parIdx == ZERO_INDEX){
+        if(index == 0){
+            this.data.set(index,childVal);
+        }
+        else if(parIdx == ZERO_INDEX){
             if(childVal.compareTo(parentVal)<0){
                 swap(index,parIdx);
             }
@@ -103,12 +106,18 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
 
         } else {
             if(lftChild.compareTo(rtChild)<=0){
-                swap(index,lftChldIdx);
-                percolateDown(lftChldIdx);
+                if(currVal.compareTo(lftChild)<0){
+                    swap(index,lftChldIdx);
+                    percolateDown(lftChldIdx);
+                    percolateUp(index);
+                }
             }
             else {
-                swap(index, rtChldIdx);
-                percolateDown(rtChldIdx);
+                if(currVal.compareTo(rtChild)<0){
+                    swap(index, rtChldIdx);
+                    percolateDown(rtChldIdx);
+                    percolateUp(index);
+                }
             }
         }
     }
