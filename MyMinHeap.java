@@ -3,7 +3,8 @@
  * Name:
  * ID:
  * Email:
- * Sources used: Put "None" if you did not have any external help
+ * Sources used: https://www.geeksforgeeks.org/min-heap-in-java/ ,Lecture Slides 
+ * Put "None" if you did not have any external help
  * Some example of sources used would be Tutors, Zybooks, and Lecture Slides
  * 
  * 2-4 sentence file description here
@@ -30,6 +31,9 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
 
     public MyMinHeap(Collection<? extends E> collection){
         this.data = new ArrayList<>(collection);
+        for(int i=this.size()-1;i>=ZERO_INDEX; i--){
+            percolateDown(i);
+        }
     }
 
     protected void swap(int from, int to){
@@ -74,7 +78,7 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
         int parIdx = getParentIdx(index);
         E parentVal = this.data.get(parIdx);
         E childVal = this.data.get(index);
-        if(index == 0){
+        if(index == ZERO_INDEX){
             this.data.set(index,childVal);
         }
         else if(parIdx == ZERO_INDEX){
@@ -82,7 +86,7 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
                 swap(index,parIdx);
             }
         } else {
-            if(childVal.compareTo(parentVal)<0){
+            if(childVal.compareTo(parentVal)<=0){
                 swap(index,parIdx);
                 percolateUp(parIdx);
             }
@@ -93,31 +97,30 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface <E>{
         int lftChldIdx = getLeftChildIdx(index);
         int rtChldIdx = getRightChildIdx(index);
 
-        E lftChild = this.data.get(lftChldIdx);
-        E rtChild = this.data.get(rtChldIdx);
         E currVal = this.data.get(index);
 
-        if(rtChldIdx >= this.size()-1){
-            if(currVal.compareTo(lftChild)<0){
-                swap(index,lftChldIdx);
-            } else {
-                swap(index, rtChldIdx);
+        while(true){
+            if(lftChildIdx > this.size()-1){
+                break;
             }
 
-        } else {
-            if(lftChild.compareTo(rtChild)<=0){
-                if(currVal.compareTo(lftChild)<0){
-                    swap(index,lftChldIdx);
-                    percolateDown(lftChldIdx);
-                    percolateUp(index);
-                }
+            E lftChild = this.data.get(rtChldIdx);
+            int childIdx;
+
+            if(lftChild == this.size()-1 ||
+                    lftChild.compareTo(this.data.get(rtChldIdx)<=ZERO_INDEX)){
+                childIdx = lftChldIdx;
             }
             else {
-                if(currVal.compareTo(rtChild)<0){
-                    swap(index, rtChldIdx);
-                    percolateDown(rtChldIdx);
-                    percolateUp(index);
-                }
+                childIdx = rtChldIdx;
+            }
+
+            E childVal = this.data.get(chldIdx);
+            if(currVal.compareTo(childVal)<= 0){
+                break;
+            }
+            else{
+                swap(index,childIdx);
             }
         }
     }
